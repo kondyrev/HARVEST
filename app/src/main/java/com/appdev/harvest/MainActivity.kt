@@ -1,20 +1,80 @@
 package com.appdev.harvest
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
+import com.google.android.material.bottomnavigation.BottomNavigationView
+
+import com.appdev.harvest.fragments.HomeFragment
+import com.appdev.harvest.fragments.PlantsFragment
+import com.appdev.harvest.fragments.TasksFragment
+import com.appdev.harvest.fragments.DiaryFragment
+import com.appdev.harvest.fragments.SettingsFragment
 
 class MainActivity : AppCompatActivity() {
+
+    // Объявляем переменные для каждого фрагмента
+    private val homeFragment = HomeFragment()
+    private val plantsFragment = PlantsFragment()
+    private val tasksFragment = TasksFragment()
+    private val diaryFragment = DiaryFragment()
+    private val settingsFragment = SettingsFragment()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        // Загружаем начальный фрагмент (например, HomeFragment)
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.container, homeFragment, "home")
+                .commit()
         }
+
+        // Находим BottomNavigationView по ID
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+
+        // Настраиваем обработчик выбора пункта меню
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.homeFragment -> {
+                    switchFragment(homeFragment)
+                    return@setOnItemSelectedListener true
+                }
+                R.id.plantsFragment -> {
+                    switchFragment(plantsFragment)
+                    return@setOnItemSelectedListener true
+                }
+                R.id.tasksFragment -> {
+                    switchFragment(tasksFragment)
+                    return@setOnItemSelectedListener true
+                }
+                R.id.diaryFragment -> {
+                    switchFragment(diaryFragment)
+                    return@setOnItemSelectedListener true
+                }
+                R.id.settingsFragment -> {
+                    switchFragment(settingsFragment)
+                    return@setOnItemSelectedListener true
+                }
+                else -> false
+            }
+        }
+    }
+
+    /**
+     * Функция для плавного переключения между фрагментами
+     * @param fragment - фрагмент, который нужно отобразить
+     */
+    private fun switchFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                R.anim.fragment_enter,  // Анимация появления
+                R.anim.fragment_exit    // Анимация исчезания
+            )
+            .replace(R.id.container, fragment)
+            .disallowAddToBackStack() // Не добавляем в back stack
+            .commit()
     }
 }

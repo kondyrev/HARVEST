@@ -1,9 +1,21 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.HARVEST" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-    </style>
+    <!-- Базовая тема приложения -->
+    <style name="Theme.HARVEST" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Цвет основной палитры -->
+        <item name="colorPrimary">@color/green_primary</item>
+        <item name="colorPrimaryVariant">@color/green_light</item>
+        <item name="colorOnPrimary">@color/background</item>
 
-    <style name="Theme.HARVEST" parent="Base.Theme.HARVEST" />
+        <!-- Цвет вторичный -->
+        <item name="colorSecondary">@color/accent_yellow</item>
+        <item name="colorSecondaryVariant">@color/accent_yellow</item>
+        <item name="colorOnSecondary">@color/background</item>
+
+        <!-- Цвет текста и фона -->
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:windowBackground">@color/background</item>
+
+        <!-- Убираем тень у BottomNavigationView -->
+        <item name="elevationOverlayEnabled" tools:targetApi="lollipop">false</item>
+    </style>
 </resources>

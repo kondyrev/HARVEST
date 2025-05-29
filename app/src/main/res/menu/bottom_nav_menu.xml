@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_home"
+        android:title="Главная" />
+    <item
+        android:id="@+id/plantsFragment"
+        android:icon="@drawable/ic_plant"
+        android:title="Растения" />
+    <item
+        android:id="@+id/tasksFragment"
+        android:icon="@drawable/ic_calendar"
+        android:title="Задачи" />
+    <item
+        android:id="@+id/diaryFragment"
+        android:icon="@drawable/ic_note"
+        android:title="Дневник" />
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/ic_settings"
+        android:title="Настройки" />
+</menu>
