@@ -38,28 +38,14 @@ class MainActivity : AppCompatActivity() {
         // Настраиваем обработчик выбора пункта меню
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.homeFragment -> {
-                    switchFragment(homeFragment)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.plantsFragment -> {
-                    switchFragment(plantsFragment)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.tasksFragment -> {
-                    switchFragment(tasksFragment)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.diaryFragment -> {
-                    switchFragment(diaryFragment)
-                    return@setOnItemSelectedListener true
-                }
-                R.id.settingsFragment -> {
-                    switchFragment(settingsFragment)
-                    return@setOnItemSelectedListener true
-                }
-                else -> false
+                R.id.homeFragment -> switchFragment(homeFragment)
+                R.id.plantsFragment -> switchFragment(plantsFragment)
+                R.id.tasksFragment -> switchFragment(tasksFragment)
+                R.id.diaryFragment -> switchFragment(diaryFragment)
+                R.id.settingsFragment -> switchFragment(settingsFragment)
+                else -> return@setOnItemSelectedListener false
             }
+            true // ← вот здесь была ошибка
         }
     }
 

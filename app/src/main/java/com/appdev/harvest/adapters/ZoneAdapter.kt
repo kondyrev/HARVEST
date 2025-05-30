@@ -22,12 +22,9 @@ class ZoneAdapter(
 
     override fun onBindViewHolder(holder: ZoneViewHolder, position: Int) {
         val item = zones[position]
-
-        // Найдём элементы по ID
         holder.itemView.findViewById<TextView>(R.id.zoneName).text = item.name
         holder.itemView.findViewById<TextView>(R.id.zoneDescription).text = item.description
 
-        // Клик по карточке
         holder.itemView.setOnClickListener {
             onItemClick(item)
         }

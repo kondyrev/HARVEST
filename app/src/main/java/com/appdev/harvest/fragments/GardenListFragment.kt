@@ -4,20 +4,33 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.appdev.harvest.R
 import com.appdev.harvest.adapters.GardenListAdapter
-import com.appdev.harvest.models.GardenItem
 
 class GardenListFragment : Fragment() {
 
-    private val gardenList = listOf(
-        GardenItem("Грядка 1", "Описание 1"),
-        GardenItem("Грядка 2", "Описание 2"),
-        GardenItem("Грядка 3", "Описание 3")
-    )
+    private var zoneName: String? = null
+
+    companion object {
+        fun newInstance(zoneName: String): GardenListFragment {
+            val args = Bundle().apply {
+                putString("zone_name", zoneName)
+            }
+            val fragment = GardenListFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            zoneName = it.getString("zone_name")
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,9 +39,14 @@ class GardenListFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_garden_list, container, false)
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewGardens)
-        val adapter = GardenListAdapter(gardenList) { selectedItem ->
-            // Здесь можно добавить переход к растениям или другим экранам
+        val titleTextView = view.findViewById<TextView>(R.id.zoneTitleText)
+        titleTextView.text = zoneName ?: "Зона не выбрана"
+
+        val recyclerView = view.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recyclerViewGardens)
+        val gardenNames = listOf("Грядка 1", "Грядка 2", "Грядка 3")
+
+        val adapter = GardenListAdapter(gardenNames) { name ->
+            // Можно добавить переход к растениям
         }
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
