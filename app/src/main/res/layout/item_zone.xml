@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:orientation="horizontal"
+    android:padding="12dp"
+    android:background="?attr/selectableItemBackground">
+
+    <!-- Иконка зоны -->
+    <View
+        android:id="@+id/zoneIcon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="#B0EAD6"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="zone_icon"/>
+
+    <!-- Текст -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/zoneName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Зона"
+            android:textSize="16sp"
+            android:textColor="@color/text_primary"/>
+
+        <TextView
+            android:id="@+id/zoneDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Описание"
+            android:textSize="14sp"
+            android:textColor="@color/green_primary"/>
+    </LinearLayout>
+
+    <!-- Стрелочка направо -->
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_arrow_right"
+        android:tint="@color/green_primary"
+        android:layout_gravity="center_vertical"/>
+</LinearLayout>
