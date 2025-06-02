@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.appdev.harvest.R
 import com.appdev.harvest.adapters.GardenListAdapter
 
-class GardenListFragment : Fragment() {
+class GardenListFragment : BaseFragment() {
 
     private var zoneName: String? = null
 
@@ -25,33 +26,36 @@ class GardenListFragment : Fragment() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            zoneName = it.getString("zone_name")
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_garden_list, container, false)
+        arguments?.let {
+            zoneName = it.getString("zone_name")
+        }
+
+        return inflater.inflate(R.layout.fragment_garden_list, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        if (!isAuthorized()) {
+            onNotAuthorized()
+            return
+        }
 
         val titleTextView = view.findViewById<TextView>(R.id.zoneTitleText)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewGardens)
+
         titleTextView.text = zoneName ?: "Зона не выбрана"
 
-        val recyclerView = view.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recyclerViewGardens)
         val gardenNames = listOf("Грядка 1", "Грядка 2", "Грядка 3")
 
-        val adapter = GardenListAdapter(gardenNames) { name ->
-            // Можно добавить переход к растениям
-        }
+        val adapter = GardenListAdapter(gardenNames) { _ -> }
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
-
-        return view
     }
 }

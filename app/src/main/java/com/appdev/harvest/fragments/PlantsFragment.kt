@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.appdev.harvest.R
 
-class PlantsFragment : Fragment() {
+class PlantsFragment : BaseFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

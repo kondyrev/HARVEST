@@ -22,8 +22,10 @@ class ZoneAdapter(
 
     override fun onBindViewHolder(holder: ZoneViewHolder, position: Int) {
         val item = zones[position]
-        holder.itemView.findViewById<TextView>(R.id.zoneName).text = item.name
-        holder.itemView.findViewById<TextView>(R.id.zoneDescription).text = item.description
+        holder.itemView.apply {
+            findViewById<TextView>(R.id.zoneName).text = item.name
+            findViewById<TextView>(R.id.zoneDescription).text = item.description
+        }
 
         holder.itemView.setOnClickListener {
             onItemClick(item)

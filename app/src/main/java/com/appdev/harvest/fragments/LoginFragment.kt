@@ -20,8 +20,11 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_login, container, false)
+        return inflater.inflate(R.layout.fragment_login, container, false)
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         auth = FirebaseAuth.getInstance()
 
         val editTextEmail = view.findViewById<EditText>(R.id.editTextEmail)
@@ -29,35 +32,34 @@ class LoginFragment : Fragment() {
         val btnLogin = view.findViewById<Button>(R.id.btnLogin)
         val btnRegister = view.findViewById<Button>(R.id.btnRegister)
 
+        // Вход через Firebase
         btnLogin.setOnClickListener {
             val email = editTextEmail.text.toString().trim()
             val password = editTextPassword.text.toString().trim()
 
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(context, "Введите email и пароль", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Введите email и пароль", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        // Переход к главному экрану
                         parentFragmentManager.beginTransaction()
                             .replace(R.id.container, HomeFragment())
-                            .commit()
+                            .commitAllowingStateLoss()
                     } else {
-                        Toast.makeText(context, "Ошибка входа: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), "Ошибка входа", Toast.LENGTH_LONG).show()
                     }
                 }
         }
 
+        // Переход к регистрации
         btnRegister.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(R.id.container, RegisterFragment())
+                .replace(R.id.container, RegisterFragment.newInstance())
                 .addToBackStack(null)
-                .commit()
+                .commitAllowingStateLoss()
         }
-
-        return view
     }
 }

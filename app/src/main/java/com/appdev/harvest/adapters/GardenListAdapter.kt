@@ -20,12 +20,11 @@ class GardenListAdapter(
     }
 
     override fun onBindViewHolder(holder: GardenViewHolder, position: Int) {
-        val gardenName = gardens[position]
-        val textView = holder.itemView.findViewById<TextView>(R.id.gardenName)
-        textView.text = gardenName
+        val name = gardens[position]
+        holder.itemView.findViewById<TextView>(R.id.gardenName).text = name
 
         holder.itemView.setOnClickListener {
-            onItemClick(gardenName)
+            onItemClick(name)
         }
     }
 

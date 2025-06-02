@@ -21,7 +21,7 @@
             android:textColor="@color/text_primary"
             android:layout_marginBottom="24dp"/>
 
-        <!-- Элементы настроек -->
+        <!-- Уведомления -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -51,37 +51,9 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="2dp">
+        <!-- Резервное копирование (временно убрано) -->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Резервное копирование"
-                    android:textSize="16sp"
-                    android:textColor="@color/text_primary"/>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnBackup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Создать резервную копию"
-                    android:textColor="@color/green_primary"
-                    android:backgroundTint="@color/green_light"
-                    app:cornerRadius="8dp"/>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
+        <!-- О приложении -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -108,6 +80,35 @@
                     android:text="Версия: 1.0.0"
                     android:textSize="14sp"
                     android:textColor="@color/green_primary"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Кнопка выхода из аккаунта -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSignOut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Выйти из аккаунта"
+                    android:textColor="#FF0000"
+                    android:backgroundTint="#FFE5E5"
+                    app:cornerRadius="8dp"
+                    app:iconTint="#FF0000"
+                    app:iconPadding="8dp"
+                    android:gravity="center_vertical"
+                    android:textSize="16sp"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 

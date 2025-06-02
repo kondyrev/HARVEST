@@ -8,30 +8,40 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.google.firebase.auth.FirebaseAuth
 import com.appdev.harvest.R
+import com.google.firebase.auth.FirebaseAuth
 
 class RegisterFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        auth = FirebaseAuth.getInstance()
+
+        // Если пользователь уже вошёл — выходим из экрана регистрации
+        if (auth.currentUser != null) {
+            parentFragmentManager.popBackStack()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_register, container, false)
+        return inflater.inflate(R.layout.fragment_register, container, false)
+    }
 
-        auth = FirebaseAuth.getInstance()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val editTextEmail = view.findViewById<EditText>(R.id.editTextEmail)
-        val editTextPassword = view.findViewById<EditText>(R.id.editTextPassword)
         val btnRegister = view.findViewById<Button>(R.id.btnRegister)
         val btnBackToLogin = view.findViewById<Button>(R.id.btnBackToLogin)
 
         btnRegister.setOnClickListener {
-            val email = editTextEmail.text.toString().trim()
-            val password = editTextPassword.text.toString().trim()
+            val email = view.findViewById<EditText>(R.id.editTextEmail).text.toString().trim()
+            val password = view.findViewById<EditText>(R.id.editTextPassword).text.toString().trim()
 
             if (email.isEmpty() || password.length < 6) {
                 Toast.makeText(context, "Введите email и пароль (не менее 6 символов)", Toast.LENGTH_SHORT).show()
@@ -44,7 +54,7 @@ class RegisterFragment : Fragment() {
                         Toast.makeText(context, "Регистрация успешна", Toast.LENGTH_SHORT).show()
                         parentFragmentManager.popBackStack()
                     } else {
-                        Toast.makeText(context, "Ошибка регистрации: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, "Ошибка регистрации", Toast.LENGTH_LONG).show()
                     }
                 }
         }
@@ -52,7 +62,11 @@ class RegisterFragment : Fragment() {
         btnBackToLogin.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
+    }
 
-        return view
+    companion object {
+        fun newInstance(): RegisterFragment {
+            return RegisterFragment()
+        }
     }
 }

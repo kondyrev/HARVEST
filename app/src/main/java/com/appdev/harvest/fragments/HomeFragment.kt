@@ -4,16 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.auth.FirebaseAuth
 import com.appdev.harvest.R
 import com.appdev.harvest.adapters.ZoneAdapter
 import com.appdev.harvest.models.ZoneItem
-import com.appdev.harvest.fragments.LoginFragment
 
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment() {
 
     private val zoneList = listOf(
         ZoneItem("Теплица", "Поликарбонатная теплица"),
@@ -21,48 +18,32 @@ class HomeFragment : Fragment() {
         ZoneItem("Цветник", "Клумбы")
     )
 
-    private lateinit var auth: FirebaseAuth
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // Инициализируем Firebase Auth
-        auth = FirebaseAuth.getInstance()
-
-        // Проверяем, авторизован ли пользователь
-        if (auth.currentUser == null) {
-            // Пользователь не авторизован → перенаправляем на LoginFragment
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.container, LoginFragment())
-                .commit()
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
+        return inflater.inflate(R.layout.fragment_home, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        if (!isAuthorized()) {
+            onNotAuthorized()
+            return
+        }
 
         val recyclerView = view.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recyclerViewZones)
         val adapter = ZoneAdapter(zoneList) { selectedItem ->
-            Toast.makeText(requireContext(), "Выбрана зона: ${selectedItem.name}", Toast.LENGTH_SHORT).show()
-
-            // Переход к GardenListFragment
             parentFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.fragment_enter,
-                    R.anim.fragment_exit
-                )
+                .setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit)
                 .replace(R.id.container, GardenListFragment.newInstance(selectedItem.name))
                 .addToBackStack(null)
-                .commit()
+                .commitAllowingStateLoss()
         }
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
-
-        return view
     }
 }
