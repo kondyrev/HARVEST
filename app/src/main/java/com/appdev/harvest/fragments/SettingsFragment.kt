@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.appdev.harvest.MainActivity
 import com.appdev.harvest.R
 import com.google.firebase.auth.FirebaseAuth
 
@@ -34,6 +35,9 @@ class SettingsFragment : BaseFragment() {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.container, LoginFragment())
                 .commitAllowingStateLoss()
+
+            // Скрываем BottomNavigationView
+            (requireActivity() as MainActivity).updateBottomNavigationVisibility(false)
         }
     }
 }

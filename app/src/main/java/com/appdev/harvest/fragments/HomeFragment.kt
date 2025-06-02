@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.appdev.harvest.MainActivity
 import com.appdev.harvest.R
 import com.appdev.harvest.adapters.ZoneAdapter
 import com.appdev.harvest.models.ZoneItem
@@ -33,6 +34,9 @@ class HomeFragment : BaseFragment() {
             onNotAuthorized()
             return
         }
+
+        // Восстанавливаем видимость BottomNavigationView
+        (requireActivity() as MainActivity).updateBottomNavigationVisibility(true)
 
         val recyclerView = view.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recyclerViewZones)
         val adapter = ZoneAdapter(zoneList) { selectedItem ->
