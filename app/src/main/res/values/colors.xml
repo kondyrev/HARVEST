@@ -5,4 +5,5 @@
     <color name="accent_yellow">#FFD700</color>
     <color name="text_primary">#1A1A1A</color>
     <color name="background">#FFFFFF</color>
+    <color name="text_secondary">#888888</color>
 </resources>

@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.appdev.harvest.R
-import com.appdev.harvest.models.ZoneItem
+import com.appdev.harvest.models.Zone
 
 class ZoneAdapter(
-    private val zones: List<ZoneItem>,
-    private val onItemClick: (ZoneItem) -> Unit
+    private val zones: List<Zone>,
+    private val onItemClick: (Zone) -> Unit
 ) : RecyclerView.Adapter<ZoneAdapter.ZoneViewHolder>() {
 
     class ZoneViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -22,11 +22,11 @@ class ZoneAdapter(
 
     override fun onBindViewHolder(holder: ZoneViewHolder, position: Int) {
         val item = zones[position]
-        holder.itemView.apply {
-            findViewById<TextView>(R.id.zoneName).text = item.name
-            findViewById<TextView>(R.id.zoneDescription).text = item.description
-        }
 
+        holder.itemView.findViewById<TextView>(R.id.zoneName).text = item.name
+        holder.itemView.findViewById<TextView>(R.id.zoneDescription).text = item.description
+
+        // Назначаем клик на весь элемент списка
         holder.itemView.setOnClickListener {
             onItemClick(item)
         }

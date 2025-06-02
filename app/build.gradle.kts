@@ -9,6 +9,10 @@ android {
     namespace = "com.appdev.harvest"
     compileSdk = 35
 
+    buildFeatures {
+        viewBinding = true 
+    }
+
     defaultConfig {
         applicationId = "com.appdev.harvest"
         minSdk = 24
@@ -55,5 +59,6 @@ dependencies {
 
     // Firebase Auth + Firestore
     implementation("com.google.firebase:firebase-auth")
-    implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation("com.google.firebase:firebase-storage-ktx")
 }
