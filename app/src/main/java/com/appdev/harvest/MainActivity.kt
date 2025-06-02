@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private val settingsFragment = SettingsFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Theme_HARVEST) // ← устанавливаем светлую тему принудительно
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 

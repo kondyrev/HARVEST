@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Базовая тема приложения -->
-    <style name="Theme.HARVEST" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.HARVEST" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Цвет основной палитры -->
         <item name="colorPrimary">@color/green_primary</item>
         <item name="colorPrimaryVariant">@color/green_light</item>
