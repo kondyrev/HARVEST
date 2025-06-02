@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
 import com.appdev.harvest.R
 import com.appdev.harvest.adapters.ZoneAdapter
 import com.appdev.harvest.models.ZoneItem
+import com.appdev.harvest.fragments.LoginFragment
 
 class HomeFragment : Fragment() {
 
@@ -18,6 +20,23 @@ class HomeFragment : Fragment() {
         ZoneItem("Открытый огород", "Грядки на улице"),
         ZoneItem("Цветник", "Клумбы")
     )
+
+    private lateinit var auth: FirebaseAuth
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // Инициализируем Firebase Auth
+        auth = FirebaseAuth.getInstance()
+
+        // Проверяем, авторизован ли пользователь
+        if (auth.currentUser == null) {
+            // Пользователь не авторизован → перенаправляем на LoginFragment
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.container, LoginFragment())
+                .commit()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,7 +49,7 @@ class HomeFragment : Fragment() {
         val adapter = ZoneAdapter(zoneList) { selectedItem ->
             Toast.makeText(requireContext(), "Выбрана зона: ${selectedItem.name}", Toast.LENGTH_SHORT).show()
 
-            // Переход к GardenListFragment вручную
+            // Переход к GardenListFragment
             parentFragmentManager.beginTransaction()
                 .setCustomAnimations(
                     R.anim.fragment_enter,
